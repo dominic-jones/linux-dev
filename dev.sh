@@ -18,13 +18,15 @@ then
 	mkdir ~/apps
 fi
 
+ideaDir=idea-IU-141.713.2
+ideaVer=ideaIU-14.1.2
 pushd ~/apps > /dev/null
-if [ ! -d ~/apps/idea-IU-141.178.9 ]
+if [ ! -d ~/apps/$ideaDir ]
 then
-	wget https://download.jetbrains.com/idea/ideaIU-14.1.1.tar.gz
-	tar xvf ideaIU-14.1.1.tar.gz
-	rm ideaIU-14.1.1.tar.gz
-	ln -s idea-IU-141.178.9/bin/idea.sh idea
+	wget https://download.jetbrains.com/idea/$ideaVer.tar.gz
+	tar xvf $ideaVer.tar.gz
+	rm $ideaVer.tar.gz
+	ln -s $ideaDir/bin/idea.sh idea
 fi
 
 if [ ! -d ~/apps/apache-maven-3.3.1 ]

@@ -190,6 +190,7 @@ alias idea="$appsDir/idea $@"
 alias oxygen="$appsDir/oxygen $@"
 alias smartgit="$appsDir/smartgit $@"
 alias vlt="$appsDir/vlt $@"
+export CHROMIUM_FLAGS="--touch-devices=123"
 
 #Cool
 alias hosthere="python -m SimpleHTTPServer 9999"

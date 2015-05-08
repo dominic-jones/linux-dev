@@ -29,6 +29,23 @@ then
 	ln -s $ideaDir/bin/idea.sh idea
 fi
 
+smartGitVer=6_5_7
+smartGitTar=smartgit-generic-$smartGitVer.tar.gz
+smartGitUrl=http://www.syntevo.com/downloads/smartgit/$smartGitTar
+smartGitDir=smartgit-generic-$smartGitVer
+if [ ! -d ~/apps/$smartGitDir ]
+then
+	rm smartgit
+	echo "SmartGit not detected, downloading."
+	wget $smartGitUrl
+	echo "Extracting SmartGit"
+	tar xvf $smartGitTar
+	mv smartgit $smartGitDir
+	echo "Removing SmartGit tar"
+	rm $smartGitTar
+	ln -s $smartGitDir/bin/smartgit.sh smartgit
+fi
+
 if [ ! -d ~/apps/apache-maven-3.3.1 ]
 then
 	wget http://mirror.csclub.uwaterloo.ca/apache/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz

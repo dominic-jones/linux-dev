@@ -1,40 +1,51 @@
 #!/bin/bash
 
+echo Installing from apt-get
 sudo apt-get install geany chromium
+echo
 
-#if command -v java >/dev/null 2>&1; then
-#	echo Java installation detected
-#else
+if type java >/dev/null 2>&1; then
+	echo Java installation not detected
 	pushd /usr/lib/jvm
-	#sudo wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.tar.gz
-	#sudo tar xvf jdk-8u45-linux-x64.tar.gz
-	sudo ln -s jdk1.8.0_45/bin/java java
-	sudo ln -s /usr/lib/jvm/jdk1.8.0_45/bin/java /usr/bin/java
+	javaFile=jdk-8u73-linux-x64.tar.gz
+	javaUrl=http://download.oracle.com/otn-pub/java/jdk/8u73-b02/$javaFile
+	sudo wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" $javaUrl
+	sudo tar xvf $javaFile
+	sudo ln -s jdk1.8.0_73/bin/java java
+	sudo ln -s /usr/lib/jvm/jdk1.8.0_73/bin/java /usr/bin/java
 	popd
-#fi
+	echo
+else
+	echo Java installation detected
+	echo
+fi
 
 if [ ! -d ~/apps ]
 then
 	mkdir ~/apps
 fi
 
-ideaDir=idea-IU-141.713.2
-ideaVer=ideaIU-14.1.2
+ideaDir=idea-IU-141.3056.4
+ideaVer=ideaIU-14.1.6
 pushd ~/apps > /dev/null
-if [ ! -d ~/apps/$ideaDir ]
-then
-	wget https://download.jetbrains.com/idea/$ideaVer.tar.gz
+if [ -d ~/apps/$ideaDir ]
+	echo IntelliJ not detected
+	#wget https://download.jetbrains.com/idea/$ideaVer.tar.gz
 	tar xvf $ideaVer.tar.gz
 	rm $ideaVer.tar.gz
+	rm idea
 	ln -s $ideaDir/bin/idea.sh idea
+	echo
+then
+	echo IntelliJ detected
+	echo
 fi
 
 smartGitVer=6_5_7
 smartGitTar=smartgit-generic-$smartGitVer.tar.gz
 smartGitUrl=http://www.syntevo.com/downloads/smartgit/$smartGitTar
 smartGitDir=smartgit-generic-$smartGitVer
-if [ ! -d ~/apps/$smartGitDir ]
-then
+if [ -d ~/apps/$smartGitDir ]
 	rm smartgit
 	echo "SmartGit not detected, downloading."
 	wget $smartGitUrl
@@ -44,6 +55,8 @@ then
 	echo "Removing SmartGit tar"
 	rm $smartGitTar
 	ln -s $smartGitDir/bin/smartgit.sh smartgit
+then
+	echo SmartGit detected
 fi
 
 if [ ! -d ~/apps/apache-maven-3.3.1 ]
